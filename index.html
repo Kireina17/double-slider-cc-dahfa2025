@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Daftar - @dahfach</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Dekorasi -->
+  <div class="decor" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="noise"></div>
+    <!-- 5 bokeh (posisi diatur di CSS) -->
+    <ul class="bokeh"><li></li><li></li><li></li><li></li><li></li></ul>
+    <ul class="shooting"></ul>
+    <div class="neon-line"></div>
+    <div class="orbit"></div>
+  </div>
+
+  <div class="page">
+    <div class="auth-box" id="authBox">
+      <!-- Form Daftar -->
+      <div class="form-section signup">
+        <form>
+          <h2>Buat Akun</h2>
+          <input id="su-name" type="text" placeholder="Nama lengkap" required>
+          <input id="su-email" type="email" placeholder="Email" required>
+          <input id="su-pass" type="password" placeholder="Kata sandi" minlength="6" required>
+
+          <!-- indikator bar -->
+          <div class="strength-bar"><div></div></div>
+
+          <button type="submit">Daftar</button>
+          <p class="or">Atau masuk dengan</p>
+          <div class="alt-login">
+            <a href="#"><img src="assets/facebook.svg" alt="Facebook"></a>
+            <a href="#"><img src="assets/github.svg" alt="GitHub"></a>
+            <a href="#"><img src="assets/Google__G__logo.svg.webp" alt="Google"></a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Form Login -->
+      <div class="form-section signin">
+        <form>
+          <h2>Masuk</h2>
+          <input id="si-email" type="email" placeholder="Email" required>
+          <input id="si-pass" type="password" placeholder="Kata sandi" minlength="6" required>
+
+          <div class="extras">
+            <label><input type="checkbox"> Ingat saya</label>
+            <a href="#">Lupa sandi?</a>
+          </div>
+
+          <button type="submit">Login</button>
+          <p class="or">Atau masuk dengan</p>
+          <div class="alt-login">
+            <a href="#"><img src="assets/facebook.svg" alt="Facebook"></a>
+            <a href="#"><img src="assets/github.svg" alt="GitHub"></a>
+            <a href="#"><img src="assets/Google__G__logo.svg.webp" alt="Google"></a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Overlay (double slider) -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="panel panel-left">
+            <div class="glass">
+              <h2>Selamat Datang</h2>
+              <p>Sudah punya akun? Silakan login di sini.</p>
+              <button type="button" class="switch" id="goLogin">Masuk</button>
+            </div>
+          </div>
+          <div class="panel panel-right">
+            <div class="glass">
+              <h2>Belum Bergabung?</h2>
+              <p>Buat akun baru dan mulai perjalananmu sekarang juga.</p>
+              <button type="button" class="switch" id="goSignup">Daftar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Overlay -->
+
+    </div>
+  </div>
+
+  <p class="copy">© 2025 <b>@dahfach</b>. All rights reserved.</p>
+
+  <script src="script.js"></script>
+</body>
+</html>

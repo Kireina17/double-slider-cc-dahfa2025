@@ -1,0 +1,201 @@
+:root{
+  --c-bg:#10131a; --c-accent1:#5ed5a8; --c-accent2:#5da9ff; --c-text:#ffffff;
+  --shadow:0 12px 28px rgba(0,0,0,.35); --radius:18px;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; color:var(--c-text);
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:
+    radial-gradient(1200px 800px at 12% -8%, #24304f 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 20%, #1f3f65 0%, transparent 60%),
+    var(--c-bg);
+}
+.page{min-height:100svh; display:grid; place-items:center; padding:24px}
+.copy{position:fixed; bottom:10px; right:14px; font-size:12px; opacity:.75}
+
+/* ============ Dekor ============ */
+.decor{position:fixed; inset:0; z-index:-2; overflow:hidden}
+.aurora{position:absolute; inset:-20% -10% -10% -20%;
+  background:
+    radial-gradient(60% 60% at 20% 20%, rgba(93,169,255,.55), transparent 60%),
+    radial-gradient(50% 50% at 80% 30%, rgba(94,213,168,.45), transparent 60%),
+    radial-gradient(40% 40% at 40% 80%, rgba(157,110,255,.30), transparent 60%);
+  filter:blur(38px) saturate(120%);
+  animation:aurora 22s ease-in-out infinite alternate
+}
+@keyframes aurora{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(-4%,2%,0) scale(1.05)}
+  100%{transform:translate3d(6%,-3%,0) scale(1.02)}
+}
+.noise{position:absolute; inset:0; opacity:.22; mix-blend-mode:overlay; pointer-events:none;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.03%22/></svg>');
+  animation:noise 1.5s steps(2) infinite
+}
+@keyframes noise{to{transform:translate3d(-1%,1%,0)}}
+
+/* Bokeh ringan – sebar 5 titik di seluruh layar */
+.bokeh{position:absolute; inset:0; margin:0; padding:0; list-style:none; pointer-events:none; filter:blur(1px)}
+.bokeh li{
+  position:absolute; bottom:-60px; width:16px; height:16px; border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.9), transparent 70%);
+  opacity:.22; animation:rise 14s linear infinite;
+}
+@keyframes rise{from{transform:translateY(0)} to{transform:translateY(-120vh)}}
+/* posisi acak sederhana (5 item) */
+.bokeh li:nth-child(1){left:12%}
+.bokeh li:nth-child(2){left:36%}
+.bokeh li:nth-child(3){left:58%}
+.bokeh li:nth-child(4){left:76%}
+.bokeh li:nth-child(5){left:88%}
+
+.shooting{position:absolute; inset:0; margin:0; padding:0; list-style:none}
+.shooting li{
+  position:absolute; top:var(--y,50vh); left:var(--x,50vw);
+  width:140px; height:2px; opacity:0; transform:rotate(-45deg);
+  background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95) 60%, #9fdcff);
+  border-radius:2px; filter:drop-shadow(0 0 6px rgba(159,220,255,.6));
+  animation:shoot var(--d,6s) linear infinite var(--delay,0s)
+}
+@keyframes shoot{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(-45deg)}
+  5%{opacity:1}
+  100%{opacity:0;transform:translate3d(-60vw,60vh,0) rotate(-45deg)}
+}
+@media (prefers-reduced-motion:reduce){.aurora,.noise,.bokeh li,.shooting li{animation:none}}
+
+/* ============ Box utama ============ */
+.auth-box{
+  position:relative; width:min(860px,96vw); height:520px;
+  background:rgba(255,255,255,.06); border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.12); box-shadow:var(--shadow);
+  overflow:hidden; backdrop-filter:blur(10px);
+}
+
+/* ============ Forms kiri/kanan ============ */
+.form-section{
+  position:absolute; top:0; left:0; width:50%; height:100%;
+  display:flex; justify-content:center; align-items:center; padding:40px;
+  transition:transform .85s cubic-bezier(.77,0,.175,1), opacity .6s ease, filter .6s ease;
+  will-change:transform,opacity,filter
+}
+.signin{z-index:2}
+.signup{opacity:0; filter:blur(6px); z-index:1}
+
+form{width:100%; max-width:340px; text-align:center}
+form h2{margin:0 0 18px; letter-spacing:-.4px}
+
+/* input “manja di mata” – hanya untuk field teks */
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+  width:100%; margin:10px 0; padding:14px 16px; outline:none; color:#fff;
+  border-radius:14px; border:1px solid rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06)) padding-box,
+    radial-gradient(120% 140% at 0% 0%, rgba(106,167,255,.35), rgba(118,228,194,.22)) border-box;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.20), 0 10px 26px rgba(0,0,0,.18);
+  transition: box-shadow .25s, border-color .25s, background .25s;
+}
+input::placeholder{color:#dfe6f6cc}
+input:hover{border-color:rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 12px 30px rgba(0,0,0,.22)}
+input:focus{
+  border-color:transparent;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07)) padding-box,
+    radial-gradient(140% 160% at 0% 0%, rgba(106,167,255,.55), rgba(118,228,194,.30)) border-box;
+  box-shadow: 0 0 0 4px rgba(106,167,255,.22), 0 12px 34px rgba(106,167,255,.18), inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+/* tombol */
+button{
+  position:relative; overflow:hidden; margin-top:12px; border:none;
+  padding:12px 36px; border-radius:20px;
+  background:linear-gradient(135deg, var(--c-accent2), var(--c-accent1));
+  color:#08111f; font-weight:700; cursor:pointer; transition:.25s;
+  box-shadow:0 8px 24px rgba(0,0,0,.25), inset 0 -2px 8px rgba(255,255,255,.35)
+}
+button:hover{transform:translateY(-1px) scale(1.02)}
+.switch{background:transparent; border:1px solid rgba(255,255,255,.9); color:#fff}
+
+/* extras + checkbox cantik */
+.extras{display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:13px; margin:8px 0 12px}
+.extras a{color:#bcd1ff; text-decoration:none}
+.extras a:hover{text-decoration:underline}
+.extras label{display:inline-flex; align-items:center; gap:10px; cursor:pointer; user-select:none; color:#e8eefb}
+.extras input[type="checkbox"]{
+  appearance:none; -webkit-appearance:none;
+  width:18px; height:18px; border-radius:5px;
+  border:1.6px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15);
+  transition:.2s ease; position:relative;
+}
+.extras input[type="checkbox"]:hover{border-color:rgba(255,255,255,.55)}
+.extras input[type="checkbox"]:focus{outline:none; box-shadow:0 0 0 3px rgba(106,167,255,.25)}
+.extras input[type="checkbox"]::after{
+  content:""; position:absolute; inset:0; margin:auto; width:9px; height:9px;
+  border-radius:3px; background:linear-gradient(135deg,#5da9ff,#76e4c2);
+  transform:scale(0); transition:transform .18s ease;
+}
+.extras input[type="checkbox"]:checked{border-color:transparent; background:rgba(255,255,255,.08)}
+.extras input[type="checkbox"]:checked::after{transform:scale(1)}
+
+.or{font-size:14px; margin:16px 0; color:#b7c3d9}
+.alt-login{display:flex; justify-content:center; gap:12px}
+.alt-login a{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.alt-login img{width:18px;height:18px}
+
+/* strength bar */
+.strength-bar{width:100%; height:6px; background:rgba(255,255,255,.1); border-radius:4px; margin:6px 0 14px; overflow:hidden}
+.strength-bar div{height:100%; width:0%; background:linear-gradient(90deg,#ff4b4b,#ffc94e,#3bff6b); transition:width .4s ease}
+
+/* ============ Overlay (slider) – aman untuk slide ============ */
+.overlay-container{position:absolute; top:0; left:50%; width:50%; height:100%; overflow:hidden; transition:transform .85s cubic-bezier(.77,0,.175,1); z-index:5}
+.overlay{
+  /* parallax via CSS var (optional) */
+  --px: 0px; --py: 0px;
+
+  position:relative; left:-100%; width:200%; height:100%;
+  /* SLIDER translateX + tambahan parallax (tidak override) */
+  transform:translateX(0) translate(var(--px), var(--py));
+  transition:transform .85s cubic-bezier(.77,0,.175,1);
+  background:url('assets/Jepanase\ City\ Life.gif') center/cover no-repeat;
+}
+.overlay::before{content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(8,12,20,.55), rgba(8,12,20,.35))}
+.overlay > *{position:relative; z-index:1}
+.panel{position:absolute; top:0; width:50%; height:100%; padding:0 40px; display:flex; align-items:center; justify-content:center; text-align:center}
+.panel-left{left:0; transform:translateX(-20%)}
+.panel-right{right:0}
+.glass{background:rgba(10,14,22,.32); border:1px solid rgba(255,255,255,.25); border-radius:18px; padding:22px 26px; max-width:360px; box-shadow:0 8px 22px rgba(0,0,0,.35); backdrop-filter:blur(6px)}
+
+/* Toggle states */
+.auth-box.right-active .signin{transform:translateX(100%); opacity:0; filter:blur(6px); z-index:1}
+.auth-box.right-active .signup{transform:translateX(100%); opacity:1; filter:none; z-index:2}
+.auth-box.right-active .overlay-container{transform:translateX(-100%)}
+.auth-box.right-active .overlay{transform:translateX(50%) translate(var(--px), var(--py))}
+.auth-box.right-active .panel-left{transform:translateX(0)}
+.auth-box.right-active .panel-right{transform:translateX(20%)}
+
+/* ============ Mobile: overlay jadi header; 1 form saja ============ */
+@media (max-width:900px){
+  .page{place-items:start center; padding:16px}
+  .auth-box{width:min(460px,100%); height:auto; border-radius:18px; padding-top:220px}
+  .overlay-container{position:absolute; top:0; left:0; right:0; width:100%; height:210px; transform:none!important; border-bottom:1px solid rgba(255,255,255,.12)}
+  .overlay{left:0; width:200%; height:100%; --px:0px; --py:0px} /* parallax off di HP */
+  .panel{width:50%; padding:0 16px}
+  .panel-left,.panel-right{transform:translateX(0)}
+  .glass{max-width:92%}
+  .form-section{position:relative; width:100%; transform:none!important; opacity:1!important; filter:none!important; padding:20px; z-index:1}
+  .form-section{display:none}
+  .signup{display:block}              /* default: DAFTAR muncul dulu di HP */
+  .auth-box.right-active .signup{display:none}
+  .auth-box.right-active .signin{display:block}
+  button{width:100%}
+}
+.overlay{
+  /* ... properti kamu yang sudah ada ... */
+  will-change: transform; /* hint performa supaya makin mulus */
+}
